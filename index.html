@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill Me In</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandBlue: '#1e3a8a', 
+                        brandYellow: '#facc15', 
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-white text-slate-800 font-sans antialiased flex flex-col min-h-screen">
+
+    <!-- TASK BAR / NAVIGATION -->
+    <nav class="bg-brandBlue text-white p-4 shadow-md">
+        <div class="max-w-6xl mx-auto flex justify-center items-center">
+            <h1 class="text-3xl font-bold tracking-tight">📜 Bill Me In</h1>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT WRAPPER -->
+    <main class="flex-grow">
+        
+        <!-- SEARCH SECTION -->
+        <header class="max-w-6xl mx-auto py-20 px-4 text-center">
+            <h2 class="text-5xl font-extrabold text-brandBlue mb-4">Know the Bill. Know the Change.</h2>
+            <p class="text-lg text-slate-600 mb-10 max-w-2xl mx-auto">We translate dense Indian legislative documents into accessible, engaging, and simple formats. No bias, just facts.</p>
+            
+            <div class="max-w-2xl mx-auto flex shadow-lg rounded-lg overflow-hidden border border-slate-200">
+                <input type="text" id="searchInput" placeholder="Search a Bill, Act, or topic (e.g., Data Protection)..." 
+                    class="w-full p-4 text-lg focus:outline-none">
+                <button type="button" onclick="searchBill()" class="bg-brandBlue text-white px-8 font-bold hover:bg-blue-800 transition">
+                    Search
+                </button>
+            </div>
+        </header>
+
+        <!-- 2 FEATURES SHOWCASE -->
+        <section id="services" class="bg-slate-50 py-16 border-t border-slate-100">
+            <div class="max-w-4xl mx-auto px-4 grid md:grid-cols-2 gap-8 text-center">
+                <!-- Box 1: AI Explanations -->
+                <div class="bg-white p-8 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition">
+                    <h3 class="text-2xl font-bold text-brandBlue mb-3">🤖 AI Explanations</h3>
+                    <p class="text-slate-600">Complex legal jargon broken down into 5 simple points: What it is, who it affects, and its real-world impact.</p>
+                </div>
+                <!-- Box 2: 100% Verified -->
+                <div class="bg-white p-8 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition">
+                    <h3 class="text-2xl font-bold text-brandBlue mb-3">🔒 100% Verified</h3>
+                    <p class="text-slate-600">Every single legislative bill is cryptographically verified directly from digital Sansad.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI EXPLANATION RESULTS  -->
+        <section id="resultsSection" class="max-w-4xl mx-auto py-16 px-4 hidden">
+            
+            <!-- THE VERIFIED AUTHENTICITY TAG -->
+            <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-8 flex items-start justify-between shadow-sm">
+                <div>
+                    <h4 class="text-green-800 font-bold flex items-center">
+                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"></path></svg>
+                        Verified Official Source
+                    </h4>
+                    <p class="text-xs text-green-700 mt-1 font-mono">SHA-256 Fingerprint: a2c9f8e7d6...b4a1</p>
+                </div>
+                <a href="https://sansad.in/ls/legislation/bills" target="_blank" class="text-sm bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition">View on sansad.in</a>
+            </div>
+
+            <h2 id="billTitle" class="text-3xl font-bold text-brandBlue mb-6">The Digital Personal Data Protection Bill, 2023</h2>
+            
+            <!-- AI BREAKDOWN -->
+            <div class="space-y-6">
+                <div class="bg-white p-6 border-l-4 border-brandBlue shadow-sm">
+                    <h4 class="font-bold text-slate-500 uppercase text-sm mb-2">1. What is the bill about?</h4>
+                    <p id="ans_what" class="text-lg">Loading AI summary...</p>
+                </div>
+                
+                <div class="bg-white p-6 border-l-4 border-brandYellow shadow-sm">
+                    <h4 class="font-bold text-slate-500 uppercase text-sm mb-2">2. Who will it affect?</h4>
+                    <p id="ans_who" class="text-lg">Loading impact analysis...</p>
+                </div>
+
+                <div class="bg-white p-6 border-l-4 border-brandBlue shadow-sm">
+                    <h4 class="font-bold text-slate-500 uppercase text-sm mb-2">3. What does it state?</h4>
+                    <p id="ans_state" class="text-lg">Loading provisions...</p>
+                </div>
+
+                <div class="bg-white p-6 border-l-4 border-red-400 shadow-sm">
+                    <h4 class="font-bold text-slate-500 uppercase text-sm mb-2">4. What does it restrict?</h4>
+                    <p id="ans_restrict" class="text-lg">Loading restrictions...</p>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-brandBlue text-white py-10 mt-12 border-t-4 border-brandYellow">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h4 class="text-xl font-bold text-brandYellow mb-3">📜 Bill Me In</h4>
+            <p class="text-blue-200 text-sm mb-6">Empowering citizens with accessible, unbiased, and cryptographically verified insights into Indian legislation.</p>
+            
+            <div class="bg-blue-900/50 border border-blue-800 rounded-lg p-4 mb-6 text-xs text-blue-100 text-left md:text-center shadow-inner leading-relaxed">
+                <strong class="text-brandYellow">Disclaimer:</strong> This is not an official government website. Explanations are AI-generated based exclusively on official source texts and do not constitute legal advice. While every effort is made to ensure accuracy through cryptographic verification, you must always refer to the official gazetted documents before taking any action.
+            </div>
+            
+            <p class="text-blue-400 text-xs tracking-wide">POWERED BY OPEN DATA & GENERATIVE AI</p>
+        </div>
+    </footer>
+
+    <script>
+        // Search by pressing "Enter" key
+        document.getElementById("searchInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                searchBill();
+            }
+        });
+
+        // Prevents JavaScript crashes
+        function safeSetText(id, text) {
+            const el = document.getElementById(id);
+            if (el) el.innerText = text;
+        }
+
+        async function searchBill() {
+            const searchInput = document.getElementById('searchInput').value.trim();
+            const resultsSection = document.getElementById('resultsSection');
+            
+            if (!searchInput) {
+                alert("Please enter a bill name to search.");
+                return;
+            }
+
+            resultsSection.classList.remove('hidden');
+            safeSetText('billTitle', "🧠 AI is analyzing the legal text...");
+            
+            const fields = ['ans_what', 'ans_who', 'ans_state', 'ans_restrict'];
+            fields.forEach(id => safeSetText(id, "Loading..."));
+
+            const hashDisplay = document.querySelector('.font-mono');
+            if (hashDisplay) hashDisplay.innerText = "Verifying cryptographic hash...";
+
+            try {
+                // Fetch from Flask
+                const response = await fetch("http://127.0.0.1:5000/api/search", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ query: searchInput })
+                });
+
+                const data = await response.json();
+
+                // Handle Success
+                if (response.ok && !data.error) {
+                    safeSetText('billTitle', data.title);
+                    
+                    if (hashDisplay && data.hash) {
+                        hashDisplay.innerText = `SHA-256 Fingerprint: ${data.hash.substring(0, 32)}...`;
+                    }
+
+                    safeSetText('ans_what', data.explanation.what_is_it);
+                    safeSetText('ans_who', data.explanation.who_affected);
+                    safeSetText('ans_state', data.explanation.what_stated);
+                    safeSetText('ans_restrict', data.explanation.what_restricted);
+                    
+                    resultsSection.scrollIntoView({ behavior: 'smooth' });
+                } 
+                // Handle 404
+                else {
+                    safeSetText('billTitle', "❌ " + (data.error || "Bill not found."));
+                    fields.forEach(id => safeSetText(id, "-"));
+                    if (hashDisplay) hashDisplay.innerText = "Hash unavailable";
+                }
+            } catch (error) {
+                // Handle Crash
+                safeSetText('billTitle', "⚠️ Server Error or API Overload.");
+                fields.forEach(id => safeSetText(id, "Could not load data. Please try again."));
+                console.error("Fetch Error:", error);
+            }
+        }
+    </script>
+</body>
+</html>

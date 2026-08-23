@@ -126,7 +126,7 @@ Create a bills table with the following columns:
 * `title` (text)
 * `content` (text)
 * `pdf_hash` (text)
-* * `status` (text)
+* `status` (text)
 
 ### 6. Add Bill PDFs
 

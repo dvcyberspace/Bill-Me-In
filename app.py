@@ -189,7 +189,6 @@ OFFICIAL BILL TEXT:
             model=GEMINI_MODEL,
             contents=prompt,
             config=types.GenerateContentConfig(
-                temperature=0.0,
                 response_mime_type="application/json"
             )
         )

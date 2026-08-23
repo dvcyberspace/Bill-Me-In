@@ -7,6 +7,8 @@ from dotenv import load_dotenv
 import os
 import json
 
+app = Flask(__name__) 
+
 # 1. APPLICATION CONFIGURATION
  
 load_dotenv()
@@ -252,8 +254,5 @@ OFFICIAL BILL TEXT:
             "hash": bill_hash
         }), 503
 
-if __name__ == '__main__':
-    app.run(
-        port=5000,
-        debug=False
-    )
+if __name__ == "__main__":
+    app.run()
